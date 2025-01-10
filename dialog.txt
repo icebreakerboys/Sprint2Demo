@@ -1,0 +1,61 @@
+#suit
+Wizard: Well, look at you! What a shiny suit of armor you've got there!
+Player: This isn't armor; it's just a suit! I had an important meeting!
+Wizard: A suit? How delightful! It looks quite formidable. Ready to battle a dragon at a grand gathering?
+Player: More like trying to impress some folks at a gathering, but I see your point!
+
+#casual clothes
+Wizard: By the stars! What in the realm are you wearing? It looks... comfortable?
+Player: This? It's just a casual outfit! Perfect for hanging out or running errands.
+Wizard: Casual outfit? How delightful! I’ve never seen such garments. Are they woven from the finest dragon scales?
+Player: Nope! Just cotton. No dragons involved, I promise.
+Wizard: A gathering, you say? A cunning foe indeed! But tell me, does it offer any protection against fireballs? I hope so because you'll need it
+
+#bathing suit
+Wizard: By the stars! Is that what passes for clothing where you come from?
+Player: This? It's a bathing suit! Perfect for a beach day!
+Wizard: A bathing suit? Fascinating! So, in your world, you don’t like wearing clothes?
+Player: Well, we do, just not when we’re swimming or lounging. It's comfortable!
+Wizard: Comfortable, you say? Here, you'd catch the eye of every ogre in the forest!
+Player: Ogres? Yikes! I didn't think about that!
+Wizard: Yes, they'd probably think you’re a snack. A very unusual snack.
+Player: So, what's the dress code here?
+Wizard: Layers, my friend! A good robe, sturdy boots, and perhaps a hat to ward off prying eyes!
+Player: I guess I'll need a whole new wardrobe, then.
+
+#robe
+Wizard: Well, well! Look at you in that splendid robe! Are you a wizard from some far-off land?
+Player: Uh, this? It's just a bathrobe. I was having a lazy day!
+Wizard: A bathrobe? Fascinating! I’ve never seen such a stylish wizarding garment. Where do you hail from?
+Player: I'm from a place where we wear these for comfort, not magic. No spells here, just snacks!
+Wizard: *under breath* They are never going to make it out of here.
+
+#no shower no teeth brushed and ate an onion
+Wizard: Points staff at player, "show your true form you vile orc, I can smell you through the disguise"
+#Options
+1. I am not an orc, I just forgot to shower orrr brush my teeth."
+2. How dare you, take this...
+#1
+Wizard: Ahh, if trolls can smell you from a mile away, we're in trouble!
+Player: I thought they were attracted to shiny things, not... whatever this is!
+Wizard: Oh, they're attracted to smells, too! And right now, you're like bacon!
+#Done
+#2
+The Wizard bashes your head with their staff
+Everything fades to black.  
+You wake up next to the wizard again.
+Wizard: My dispel did not work you must be in your true from.
+#Dialog
+Wizard: We must get you to an inn and get you a proper bath.
+
+#no teethbrushed and ate an onion
+Wizard: Excuse me, but have you eaten an orc recently? Your breath could knock a dragon out!
+Player: What? No! I just had an onion. But now that you mention it, how does orc taste?
+Wizard: Well, it's a bit... gamey. A real acquired taste, I assure you!
+
+#no shower
+Wizard: Good heavens! What is that smell? Did you forget to shower, or are trolls nearby?
+Player: Uh, I might've skipped a few baths. But trolls? Really?
+Wizard: Trust me, if trolls can smell you from a mile away, we're in trouble!
+Player: I thought they were attracted to shiny things, not... whatever this is!
+Wizard: Oh, they're attracted to smells, too! And right now, you’re like bacon!
