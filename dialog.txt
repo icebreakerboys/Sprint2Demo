@@ -59,3 +59,62 @@ Player: Uh, I might've skipped a few baths. But trolls? Really?
 Wizard: Trust me, if trolls can smell you from a mile away, we're in trouble!
 Player: I thought they were attracted to shiny things, not... whatever this is!
 Wizard: Oh, they're attracted to smells, too! And right now, you’re like bacon!
+
+#wake up 1
+You awaken to the sun beams coming through your bedside window. "Another day, another dollar," You think as you shift your 
+legs to get out of bed, and start walking to the kitchen.
+
+#running late
+You glance at the clock, and realize you are running very late for work!
+
+#quickly
+Thankfully your work is close enough to walk, but you know you need to run! There is some contruction down the road but
+you don't think much of it as you sprint through it. Before you get pass the contruction, you hear someone yell, 
+"HEY! LOOK OUT!" It was too late. You feel a sharp pain on you head as your crushed by debris.
+
+#wake up 2
+You awaken in a field of grass as a man with a staff approaches you. He is wearing a floppy hat and blue robes. He looks
+like what you remember Gandalf from Lord of the Rings to look like.
+
+Wizard: How are you unwounded? I saw you fall from the sky. 
+Player: I don't know? One minute, I was walking to work, and the next thing I know I'm waking up here!
+
+#story of land 1
+In the land of Zonia, a realm of vibrant forests, majestic mountains, dark marshes,  and ancient magic, there existed a 
+prophecy whispered among the wise and old. It foretold the arrival of an Outsider, one who would bring a new light 
+to the realm and save the captured princess from Gorlath the giant Slime King.
+Long ago, the land thrived in harmony, but darkness had begun to seep into the hearts of its inhabitants. The once-
+peaceful creatures of the forest turned hostile, the skies darkened, Gorlath rose to power, and fear reigned in the 
+hearts of the people. The Council of Elders, a gathering of the wisest beings in Zonia, sought answers in the ancient 
+texts and discovered the prophecy. It spoke of a traveler from another world who would arrive dressed in strange
+garments, wielding untapped potential and courage. This Outsider would embark on a quest to restore the fractured 
+bonds of Zonia and return home.
+
+#story of land 2
+Your journey starts in the quaint town of Willow Brooke, nestled between lush, green hills and crystal-clear streams. 
+Known for its vibrant markets and friendly townsfolk, Willow Brooke was a hub of trade and a melting pot of cultures. 
+The townspeople truly believe in the Outsider's arrival, their hearts still full of hope and anticipation.
+After Willow Brooke you must travel to Valley of Whispers, a lush, fertile expanse filled with vibrant and aggressive  
+flora and hidden dangers. As you venture deeper into the valley, you hear the soft rustling of leaves and the faint 
+murmurs of ancient spirits. The valley is known for its enchanted winds that carry voices from the past, testing the 
+resolve of travelers.
+
+#story of land 3
+To pass through, you must confront the Echoing Spirits, lost souls who seek to entrap wanderers in their tales of 
+despair. They will challenge you with riddles and stories, probing your heart to see if you are worthy. 
+After emerging from the Valley of Whispers, you ascend the the Stormspire Heights, a towering range of mountains 
+that seem to scrape the very sky. The air here is thin, and the paths are treacherous. As you climb, the beauty of the 
+landscape you are met with perilous cliffs and sudden storms that can sweep you off your feet.
+The peaks are guarded by the Stormspire Sentinels, majestic beings made of stone and cloud. They will test your 
+strength and determination. To proceed, you must complete a trial of endurance, scaling the cliffs while overcoming 
+fierce winds and illusions that threaten to lead you astray. 
+
+#story of land 4
+Finally, you arrive at the Dark Marsh, a foreboding expanse shrouded in mist and mystery. The ground is soft and 
+treacherous, with hidden sinkholes and lurking shadows. The air is thick with an eerie silence, occasionally broken by 
+distant croaks and rustles that send shivers down your spine.
+It is here that the final challenge awaits you. Gorlath the Slime King, the malevolent entity that has been spreading 
+fear throughout Zonia. To face this powerful foe, you must navigate the twisting paths of the marsh while battling 
+your own fears and doubts, which manifest as shadowy creatures drawn from the darkness.
+You must rally your courage and confront your own inner darkness. The battle will be fierce, but with the light of 
+hope and the strength of your journey behind you, you can defeat Gorlath ,restore peace to Zonia, and return home.

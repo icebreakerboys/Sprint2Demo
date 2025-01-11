@@ -3,6 +3,7 @@ import keyboard
 import sys
 import time
 import threading
+import random
 
 # Helpper Functions
 
@@ -49,6 +50,7 @@ def choose(numOfOptions):
 
 def pick_option(prompt, choices):
     # Sets up the prompt and options to be picked from by the player
+    print("\nPress the Space Bar to Skip Animation\n")
     text = prompt + "\n"
     i = 1
     for choice in choices:
@@ -83,8 +85,9 @@ def dialog_options(lines, text):
             break
         numOfOptions += 1
         text += line + "\n"
+    text = text.replace("Player", player.name)
     slow_type(text)
-    text = ""
+    text = "\n"
 
     choice = choose(numOfOptions)
 
@@ -105,6 +108,8 @@ def dialog_options(lines, text):
 
 def dialog(line_start, end_line):
     # Controls displaying dialog
+    global player
+    print("\nPress the Space Bar to Skip Animation\n")
     text = ""
     skipNum = 0
     lines = read_lines_from_file("dialog.txt", line_start, end_line)
@@ -115,44 +120,202 @@ def dialog(line_start, end_line):
             skipNum, text = dialog_options(lines[index+1:], text)
         else:     
             text += line + "\n"
+    text = text.replace("Player", player.name)
     slow_type(text)
-    print("\nPress the Space Bar to continue")
+    print("Press the Space Bar to continue")
     keyboard.wait('Space')
     clear_console()
     time.sleep(0.2)
 
-# Start Of Game
+class Character:
+    def __init__(self, name, health, attack, defense):
+        self.name = name
+        self.health = health
+        self.attack = attack
+        self.defense = defense
 
-clear_console()
-player_name = input("What is your name?\n")
-clear_console()
-sex = pick_option("What Sex would you like to play as?", ["Male", "Female", "Other"])
-#Wake up
-breakfast = pick_option("What do you eat for breakfast?", ["Cereal","Cooked eggs","Raw onion"])
-clothes = pick_option("What clothes are you wearing for work?", ["Suit","Casual","Bathing suit","Bath robe"])
-#Your running late
-no_brush_teeth = pick_option("Do you brush your teeth?", ["Yes, (Costs 2 mins)", "No"])
-no_shower = pick_option(f"Do you take a shower?", ["Yes (Costs 10 mins)","No"])
-#Quickly get to work!
-#Wake up in world
-#Meet wizard
+    def take_damage(self, damage):
+        raw_damage = damage - self.defense
+        self.defense = max(0, self.defense - damage)
+        self.health = max(0, self.health - raw_damage)
 
-if clothes == 0:
-    dialog(2, 5)
-elif clothes == 1:
-    dialog(8, 12)
-elif clothes == 2:
-    dialog(15, 24)
-elif clothes == 3:
-    dialog(27, 31)
+    def drink_health_potion(self):
+        self.health = min(100, self.health + 50)
 
-if no_shower and no_brush_teeth and breakfast == 2:
-    dialog(34, 49)
-elif no_brush_teeth and breakfast == 2:
-    dialog(52, 54)
-elif no_shower:
-    dialog(57, 61)
+    def is_alive(self):
+        return self.health > 0 
+
+def enemy_turn(enemy):
+    global player
+    enemy_action = random.choice(["Attack", "Defend"])
+    text = ""
+    if enemy_action == "Attack":
+        #attack
+        if player.defense <= 0:
+            text += f"{enemy.name} Attacks you for {enemy.attack} Damage\n\n"
+        elif enemy.defense < player.attack:
+            text += f"{enemy.name} Attacks you for {enemy.attack} Damage\nYou have {player.defense} defense so they will deal a total of {enemy.attack - player.defense} damage.\n\n"
+        else:
+            text += f"{enemy.name} Attacks you for {enemy.attack} Damage\nYou have {player.defense} defense so they will thankfully deal 0 damage.\n\n"
+                
+        player.take_damage(enemy.attack)
+    elif enemy_action == "Defend":
+        #defend
+        enemy.defense += 3
+        text += f"{enemy.name} defends for an attack!\nThey have perpared a total of {enemy.defense} block to negate incoming damage\n\n"
+    return text
+
+def excute_player_action(action, enemy):
+    global player, weapon, special_attack, ready_up_timer, health_potion_count
+    text = ""
+    if action == 0:
+        #attack
+        if enemy.defense <= 0:
+            text += f"You {weapon} for {player.attack} damage!\n\n"
+        elif enemy.defense < player.attack:
+            text += f"You {weapon} for {player.attack} damage!\n{enemy.name} has {enemy.defense} defense so you will deal a total of {player.attack - enemy.defense} damage.\n\n"
+        else:
+            text += f"You {weapon} for {player.attack} damage!\n{enemy.name} has {enemy.defense} defense so you will sadly deal 0 damage.\n\n"
+        enemy.take_damage(player.attack)
+    elif action == 1:
+        #defend
+        player.defense += 5
+        text += f"You defend for an attack!\nYou have perpared a total of {player.defense} block to negate incoming damage\n\n"
+    elif action == 2 and health_potion_count > 0:
+        #heal
+        if ready_up_timer < 3: 
+            text += f"You drink a Health Potion and heal for {min(100 - player.health, 50)} HP\nYou feel replenished! Your special is back up\n\n"
+        else: 
+            text += f"You drink a Health Potion and heal for {min(100 - player.health, 50)} HP\n\n"
+        ready_up_timer = 3
+        player.drink_health_potion()
+        health_potion_count -= 1
+    elif action == 3 or (action == 2 and not health_potion_count > 0):
+        #special
+        if enemy.defense <= 0:
+            text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n\n"
+        elif enemy.defense < player.attack:
+            text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n{enemy.name} has {enemy.defense} so you will deal a total of {2*player.attack - enemy.defense} damage.\n\n"
+        else:
+            text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n{enemy.name} has {enemy.defense} so you will sadly deal 0 damage.\n\n"
+        enemy.take_damage(2*player.attack)
+        ready_up_timer = 0
+    return text
+
+def combat(enemy, godMode):
+    global player, weapon, special_attack, ready_up_timer, health_potion_count
+    ready_up_timer = 3
+    player.defense = 5
+    inCombat = True
+    while inCombat:
+
+        print(f"\nYour HP: {player.health}/100 + ({player.defense}) | Enemy HP {enemy.health} + ({enemy.defense})")
+
+        options = [weapon, "Prepare to Defend"]
+        if health_potion_count > 0:
+            options.append(f"Drink Health Potion 50 HP ({health_potion_count} left)")
+        if ready_up_timer >= 3:
+            options.append(f"{special_attack}")
+        else:
+            ready_up_timer += 1
+
+        action = pick_option("Pick an Action:", options) #clears console 
+
+        print(f"\nYour HP: {player.health}/100 + ({player.defense}) | Enemy HP {enemy.health} + ({enemy.defense})")
+
+        print("\nPress the Space Bar to Skip Animation\n")
+
+        text = excute_player_action(action, enemy)
         
-#story of world
+        if enemy.is_alive():
+            text += enemy_turn(enemy)
+        else:
+            #enemy dead
+            text += f"\nYou've Beaten {enemy.name}\n"
+            inCombat = False
+        
+        slow_type(text)
+        print("Press the Space Bar to continue")
+        keyboard.wait('Space')
+        clear_console()
+        time.sleep(0.2)
 
+        if not player.is_alive():
+            #player Dead 
+            if godMode:
+                #player is invinsible
+                slow_type(f"\nYou escape {enemy.name}\n")
+                print("Press the Space Bar to continue")
+                keyboard.wait('Space')
+                clear_console()
+                time.sleep(0.2)
+            else:
+                slow_type(f"\n\n Game Over")
+                if input("Enter Q to quit or anything else to Restart: ").strip() == "Q":
+                    exit()
+                else:
+                    play()
+            
+def play():
+    # Start Of Game
 
+    clear_console()
+    player_name = input("\nWhat is your name?\n")
+
+    global player
+    player = Character(player_name, 100, 15, 5)
+    
+    clear_console()
+    #sex = pick_option("What Sex would you like to play as?", ["Male", "Female", "Other"])
+    dialog(64, 65)
+    breakfast = pick_option("What do you eat for breakfast?", ["Cereal","Cooked eggs","Raw onion"])
+    clothes = pick_option("What clothes are you wearing for work?", ["Suit","Casual","Bathing suit","Bath robe"])
+    dialog(68, 68)
+    no_brush_teeth = pick_option("Do you brush your teeth?", ["Yes, (Costs 2 mins)", "No"])
+    no_shower = pick_option(f"Do you take a shower?", ["Yes (Costs 10 mins)","No"])
+    dialog(71, 73)
+    dialog(76, 80)
+
+    if clothes == 0:
+        dialog(2, 5)
+    elif clothes == 1:
+        dialog(8, 12)
+    elif clothes == 2:
+        dialog(15, 24)
+    elif clothes == 3:
+        dialog(27, 31)
+
+    if no_shower and no_brush_teeth and breakfast == 2:
+        dialog(34, 49)
+    elif no_brush_teeth and breakfast == 2:
+        dialog(52, 54)
+    elif no_shower:
+        dialog(57, 61)
+        
+    #story of world
+    dialog(83, 91)
+    dialog(94, 100)
+    dialog(103, 110)
+    dialog(113, 120)
+
+    global weapon, special_attack, health_potion_count
+
+    weapon = pick_option("Weapon?", ["Sword", "Bow", "Staff"])
+    special_attack = ""
+    if weapon == 0:
+        special_attack = "Perform a Jump Attack"
+        weapon = "Attack with your Sword"
+    elif weapon == 1:
+        special_attack = "Perform a Charge Shot"
+        weapon = "Attack with your Bow"
+    elif weapon == 2:
+        special_attack = "Cast a Greater Fireball"
+        weapon = "Cast a Minor Fireball"
+
+    health_potion_count = 5
+
+    enemy = Character("The Bear", 80, 10, 3)
+
+    combat(enemy, False)
+
+play()
