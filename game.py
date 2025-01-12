@@ -4,8 +4,18 @@ import sys
 import time
 import threading
 import random
+import pygame
 
 # Helpper Functions
+
+def start_audio():
+    pygame.mixer.music.play()
+
+def stop_audio():
+    pygame.mixer.music.stop()
+
+# Initialize pygame mixer
+pygame.mixer.init()
 
 def clear_console():
     # Clears Console to make the easily readible
@@ -122,7 +132,7 @@ def dialog(line_start, end_line):
             text += line + "\n"
     text = text.replace("Player", player.name)
     slow_type(text)
-    print("Press the Space Bar to continue", end="")
+    print("Press the Space Bar to continue")
     keyboard.wait('Space')
     clear_console()
     time.sleep(0.2)
@@ -208,6 +218,7 @@ def combat(enemy, godMode):
     player.defense = 5
     inCombat = True
     print(f"You have encountered a {enemy.name} prepare to fight")
+    
     while inCombat:
 
         print(f"\nYour HP: {player.health}/100 | {enemy.name} HP {enemy.health})")
@@ -234,13 +245,14 @@ def combat(enemy, godMode):
             #enemy dead
             text += f"\nYou've Beaten {enemy.name}\n"
             inCombat = False
+            
         
         slow_type(text)
         print("Press the Space Bar to continue")
         keyboard.wait('Space')
         clear_console()
         time.sleep(0.2)
-
+        
         if not player.is_alive():
             #player Dead 
             if godMode:
@@ -259,7 +271,8 @@ def combat(enemy, godMode):
             
 def play():
     # Start Of Game
-
+    pygame.mixer.music.load('01-The Prelude.mp3')
+    start_audio()
     clear_console()
     player_name = input("\nWhat is your name?\n")
 
@@ -302,6 +315,9 @@ def play():
     clear_console()
     dialog(113, 119)
     clear_console()
+    stop_audio()
+    pygame.mixer.music.load('28-On That Day, 5 Years Ago.mp3')
+    start_audio()
     dialog(122,131)
     clear_console()
     dialog(134,134)
@@ -346,14 +362,21 @@ def play():
     ran_num = random.randint(2, 4)
     global valley_enemy
     valley_enemy = [Character("Flowering Cactoid", 50, 10, 3), Character("Mandragora",80,10,3), Character("Treant",100,20,5)]
+    pygame.mixer.music.load('11-Fighting.mp3')
+    start_audio()
     while ran_num > 0:
         ran_enemy = random.randint(0,2)
         combat(valley_enemy[ran_enemy], False)
         ran_num -= 1
-
+    stop_audio()
+    pygame.mixer.music.load('12-Fanfare.mp3')
+    start_audio()
     dialog(154,154)
     clear_console()
-    dialog(157,163)
+    stop_audio()
+    pygame.mixer.music.load('86-The Birth of God.mp3')
+    start_audio()
+    dialog(157,163)    
     clear_console()
 
     #Batles for the Stormspire
@@ -362,40 +385,61 @@ def play():
     ran_num = random.randint(2, 4)
     global mountain_enemy
     mountain_enemy = [Character("Golem", 100, 20, 25), Character("Troll",60,30,10), Character("Goblin",40,15,1)]
+    pygame.mixer.music.load('11-Fighting.mp3')
+    start_audio()
     while ran_num > 0:
         ran_enemy = random.randint(0,2)
         combat(mountain_enemy[ran_enemy], False)
         ran_num -= 1
-    
+    stop_audio()
+    pygame.mixer.music.load('12-Fanfare.mp3')
+    start_audio()
     dialog(166,166)
     clear_console()
+    stop_audio()
+    pygame.mixer.music.load('52-The Nightmare\'s Beginning.mp3')
+    start_audio()
     dialog(169,176)
     clear_console()
-
+    
     #Battle for the Marsh
 
     health_potion_count = 10
     ran_num = random.randint(2, 4)
     global marsh_enemy
     marsh_enemy = [Character("Wild Onion", 50, 10, 5), Character("Deadly Nightshade",60,15,3), Character("Dark Wisp",40,15,1)]
+    pygame.mixer.music.load('11-Fighting.mp3')
+    start_audio()
     while ran_num > 0:
         ran_enemy = random.randint(0,2)
         combat(marsh_enemy[ran_enemy], False)
         ran_num -= 1
-
-
-    dialog(179,185)
+    stop_audio()
+    pygame.mixer.music.load('12-Fanfare.mp3')
+    start_audio()
+    dialog(179,179)
+    stop_audio()
+    pygame.mixer.music.load('52-The Nightmare\'s Beginning.mp3')
+    start_audio()
+    dialog(182,188)
     clear_console()
-    dialog(188,200)
+    dialog(191,203)
+    stop_audio()
 
     player = Character(player_name,100,150,30)
     gorlath = Character("Gorlath",300,30,30)
-
+    pygame.mixer.music.load('21-Still More Fighting.mp3')
+    start_audio()
     combat(gorlath,False)
-
+    stop_audio()
+    pygame.mixer.music.load('12-Fanfare.mp3')
+    start_audio()
     dialog(202,202)
-    dialog(203,220)
+    stop_audio()
+    pygame.mixer.music.load('62-Interrupted by Fireworks.mp3')
+    start_audio()
+    dialog(205,221)
     clear_console()
-    dialog(222,222)
+    dialog(224,224)
 
 play()
