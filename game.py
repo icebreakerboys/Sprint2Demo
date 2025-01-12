@@ -50,7 +50,7 @@ def choose(numOfOptions):
 
 def pick_option(prompt, choices):
     # Sets up the prompt and options to be picked from by the player
-    print("\nPress the Space Bar to Skip Animation\n")
+    print("\nPress the Space Bar to Skip Animation\n", end="")
     text = prompt + "\n"
     i = 1
     for choice in choices:
@@ -122,7 +122,7 @@ def dialog(line_start, end_line):
             text += line + "\n"
     text = text.replace("Player", player.name)
     slow_type(text)
-    print("Press the Space Bar to continue")
+    print("Press the Space Bar to continue", end="")
     keyboard.wait('Space')
     clear_console()
     time.sleep(0.2)
@@ -195,9 +195,9 @@ def excute_player_action(action, enemy):
         if enemy.defense <= 0:
             text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n\n"
         elif enemy.defense < player.attack:
-            text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n{enemy.name} has {enemy.defense} so you will deal a total of {2*player.attack - enemy.defense} damage.\n\n"
+            text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n{enemy.name} has {enemy.defense} defense so you will deal a total of {2*player.attack - enemy.defense} damage.\n\n"
         else:
-            text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n{enemy.name} has {enemy.defense} so you will sadly deal 0 damage.\n\n"
+            text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n{enemy.name} has {enemy.defense} defense so you will sadly deal 0 damage.\n\n"
         enemy.take_damage(2*player.attack)
         ready_up_timer = 0
     return text
@@ -207,9 +207,10 @@ def combat(enemy, godMode):
     ready_up_timer = 3
     player.defense = 5
     inCombat = True
+    print(f"You have encountered a {enemy.name} prepare to fight")
     while inCombat:
 
-        print(f"\nYour HP: {player.health}/100 + ({player.defense}) | Enemy HP {enemy.health} + ({enemy.defense})")
+        print(f"\nYour HP: {player.health}/100 | {enemy.name} HP {enemy.health})")
 
         options = [weapon, "Prepare to Defend"]
         if health_potion_count > 0:
@@ -221,7 +222,7 @@ def combat(enemy, godMode):
 
         action = pick_option("Pick an Action:", options) #clears console 
 
-        print(f"\nYour HP: {player.health}/100 + ({player.defense}) | Enemy HP {enemy.health} + ({enemy.defense})")
+        print(f"\n{player.name} HP: {player.health} | {enemy.name} HP {enemy.health}")
 
         print("\nPress the Space Bar to Skip Animation\n")
 
@@ -263,7 +264,7 @@ def play():
     player_name = input("\nWhat is your name?\n")
 
     global player
-    player = Character(player_name, 100, 15, 5)
+    player = Character(player_name, 100, 30, 5)
     
     clear_console()
     #sex = pick_option("What Sex would you like to play as?", ["Male", "Female", "Other"])
@@ -271,8 +272,8 @@ def play():
     breakfast = pick_option("What do you eat for breakfast?", ["Cereal","Cooked eggs","Raw onion"])
     clothes = pick_option("What clothes are you wearing for work?", ["Suit","Casual","Bathing suit","Bath robe"])
     dialog(68, 68)
-    no_brush_teeth = pick_option("Do you brush your teeth?", ["Yes, (Costs 2 mins)", "No"])
-    no_shower = pick_option(f"Do you take a shower?", ["Yes (Costs 10 mins)","No"])
+    no_brush_teeth = pick_option("Do you brush your teeth?", ["Yes", "No"])
+    no_shower = pick_option(f"Do you take a shower?", ["Yes","No"])
     dialog(71, 73)
     dialog(76, 80)
 
@@ -293,29 +294,108 @@ def play():
         dialog(57, 61)
         
     #story of world
-    dialog(83, 91)
-    dialog(94, 100)
-    dialog(103, 110)
-    dialog(113, 120)
-
+    dialog(83, 86)
+    clear_console()
+    dialog(89, 97)
+    clear_console()
+    dialog(100, 110)
+    clear_console()
+    dialog(113, 119)
+    clear_console()
+    dialog(122,131)
+    clear_console()
+    dialog(134,134)
+    clear_console()    
+    dialog(137,137)
+    clear_console()
+    
     global weapon, special_attack, health_potion_count
 
-    weapon = pick_option("Weapon?", ["Sword", "Bow", "Staff"])
+    weapons = pick_option("Weapon?", ["Sword", "Bow", "Staff"])
     special_attack = ""
-    if weapon == 0:
+    if weapons == 0:
         special_attack = "Perform a Jump Attack"
         weapon = "Attack with your Sword"
-    elif weapon == 1:
+    elif weapons == 1:
         special_attack = "Perform a Charge Shot"
         weapon = "Attack with your Bow"
-    elif weapon == 2:
+    elif weapons == 2:
         special_attack = "Cast a Greater Fireball"
         weapon = "Cast a Minor Fireball"
 
-    health_potion_count = 5
+    dialog(138,139)
+    clear_console()
+    dialog(140,140)
+    print()
+    if weapons == 0:
+        dialog(141,141)
+        clear_console()
+    elif weapons == 1:
+        dialog(142,142)
+        clear_console()
+    elif weapons == 2:
+        dialog(143,143)
+        clear_console()
 
-    enemy = Character("The Bear", 80, 10, 3)
+    dialog(146,151)
+    clear_console()
 
-    combat(enemy, False)
+    #Battles for the Valley
+    
+    health_potion_count = 10
+    ran_num = random.randint(2, 4)
+    global valley_enemy
+    valley_enemy = [Character("Flowering Cactoid", 50, 10, 3), Character("Mandragora",80,10,3), Character("Treant",100,20,5)]
+    while ran_num > 0:
+        ran_enemy = random.randint(0,2)
+        combat(valley_enemy[ran_enemy], False)
+        ran_num -= 1
+
+    dialog(154,154)
+    clear_console()
+    dialog(157,163)
+    clear_console()
+
+    #Batles for the Stormspire
+
+    health_potion_count = 10
+    ran_num = random.randint(2, 4)
+    global mountain_enemy
+    mountain_enemy = [Character("Golem", 100, 20, 25), Character("Troll",60,30,10), Character("Goblin",40,15,1)]
+    while ran_num > 0:
+        ran_enemy = random.randint(0,2)
+        combat(mountain_enemy[ran_enemy], False)
+        ran_num -= 1
+    
+    dialog(166,166)
+    clear_console()
+    dialog(169,176)
+    clear_console()
+
+    #Battle for the Marsh
+
+    health_potion_count = 10
+    ran_num = random.randint(2, 4)
+    global marsh_enemy
+    marsh_enemy = [Character("Wild Onion", 50, 10, 5), Character("Deadly Nightshade",60,15,3), Character("Dark Wisp",40,15,1)]
+    while ran_num > 0:
+        ran_enemy = random.randint(0,2)
+        combat(marsh_enemy[ran_enemy], False)
+        ran_num -= 1
+
+
+    dialog(179,185)
+    clear_console()
+    dialog(188,200)
+
+    player = Character(player_name,100,150,30)
+    gorlath = Character("Gorlath",300,30,30)
+
+    combat(gorlath,False)
+
+    dialog(202,202)
+    dialog(203,220)
+    clear_console()
+    dialog(222,222)
 
 play()

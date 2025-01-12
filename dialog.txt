@@ -79,10 +79,16 @@ like what you remember Gandalf from Lord of the Rings to look like.
 Wizard: How are you unwounded? I saw you fall from the sky. 
 Player: I don't know? One minute, I was walking to work, and the next thing I know I'm waking up here!
 
+#Opening Chat
+Player: Where am I?
+Wizard: You have come just as I was told you would.
+Player: You knew I would be here?
+Wizard: Let me explan.
+
 #story of land 1
-In the land of Zonia, a realm of vibrant forests, majestic mountains, dark marshes,  and ancient magic, there existed a 
-prophecy whispered among the wise and old. It foretold the arrival of an Outsider, one who would bring a new light 
-to the realm and save the captured princess from Gorlath the giant Slime King.
+Wizard: You are in the land of Zonia, a realm of vibrant forests, majestic mountains, dark marshes,  and ancient magic, there existed a 
+prophecy whispered among the wise and old. It is foretold of the arrival of an Outsider, one who would bring a new light 
+to the realm and save the land from Gorlath the giant Slime King.
 Long ago, the land thrived in harmony, but darkness had begun to seep into the hearts of its inhabitants. The once-
 peaceful creatures of the forest turned hostile, the skies darkened, Gorlath rose to power, and fear reigned in the 
 hearts of the people. The Council of Elders, a gathering of the wisest beings in Zonia, sought answers in the ancient 
@@ -91,7 +97,11 @@ garments, wielding untapped potential and courage. This Outsider would embark on
 bonds of Zonia and return home.
 
 #story of land 2
-Your journey starts in the quaint town of Willow Brooke, nestled between lush, green hills and crystal-clear streams. 
+Wizard: You are the prophesied Outsider.
+Player: This can't be right, I am just a simple Major Incident Manager at a big bank.
+Wizard: I do not know what that is but you are the Hero.
+Player: What am I supposed to do?
+Wizard: Your journey starts in the quaint town of Willow Brooke, nestled between lush, green hills and crystal-clear streams. 
 Known for its vibrant markets and friendly townsfolk, Willow Brooke was a hub of trade and a melting pot of cultures. 
 The townspeople truly believe in the Outsider's arrival, their hearts still full of hope and anticipation.
 After Willow Brooke you must travel to Valley of Whispers, a lush, fertile expanse filled with vibrant and aggressive  
@@ -99,17 +109,63 @@ flora and hidden dangers. As you venture deeper into the valley, you hear the so
 murmurs of ancient spirits. The valley is known for its enchanted winds that carry voices from the past, testing the 
 resolve of travelers.
 
-#story of land 3
-To pass through, you must confront the Echoing Spirits, lost souls who seek to entrap wanderers in their tales of 
-despair. They will challenge you with riddles and stories, probing your heart to see if you are worthy. 
-After emerging from the Valley of Whispers, you ascend the the Stormspire Heights, a towering range of mountains 
-that seem to scrape the very sky. The air here is thin, and the paths are treacherous. As you climb, the beauty of the 
-landscape you are met with perilous cliffs and sudden storms that can sweep you off your feet.
-The peaks are guarded by the Stormspire Sentinels, majestic beings made of stone and cloud. They will test your 
-strength and determination. To proceed, you must complete a trial of endurance, scaling the cliffs while overcoming 
-fierce winds and illusions that threaten to lead you astray. 
+#Moving out
+Player: I guess I will head to Willow Brooke, which way is that?
+Wizard: Just follow the this road.
+Player: Will you be joining me?
+Wizard: I can not I have other matters to attend to, but I know you will be fine. You can find people to help you in town.
+Player: I guess here goes nothing.
+Wizard disappears in blast of smoke.
+Player: I should be fine, just another incident to tackle.
 
-#story of land 4
+#Enter Willow Brooke
+You make it to the quaint town of Willow Brooke, it is nestled between lush, green hills and crystal-clear streams. 
+Known for its vibrant markets and friendly townsfolk, Willow Brooke was once a hub of trade and a melting pot of cultures. 
+The townspeople truly believe in the Outsider's arrival, their hearts still full of hope and anticipation.
+As you enter the town the Wizard appears.
+Wizard: Hello Outsider, the townsfolk here are true believers of your return. I shall annoucne you.
+Wizard: Townsfolk of Willow Brooke this is the Outsider the prophecy has talked about. You must help them on their journey.
+Wizard: Outsider you should make sure to pick up a Weapon and get some better Armor before you leave town.
+Player: I have a name you know.
+Wizard: That is nice, I must be going.
+The Wizard is gone in another blast of smoke.
+
+#Inside Willow Brooke
+After the Wizards speech people are staring at you.  You decide you will need a Weapon.
+
+#Places in Willow Brooke
+Shop Clerk: Welcome Outsider, I always believed you would come. Please select anything you want on the house.
+Shop Clerk: Excellent choice. The armor smith is my brother, head there next. I am sure he will be happy to help you.
+You head to the armor shop.
+Armor Smith: Welcome Outsider, I knew you would come save us all. 
+Armor Smith: I see you favor the Sword, then you will need a nice Chain Mail for close combat.
+Armor Smith: I see you favor the Bow, then you will need a Leather Tunic, it provides excellent mobility.
+Armor Smith: I see you are a Wizard, then you need a Pointy Hat. All wizards have Pointy Hats.
+
+#Enter Valley of Whispers
+As you enter the Valley of Whispers, the landscape unfolds like a hidden gem, where a winding river snakes through lush terrain. 
+Towering trees, with gnarled trunks and twisted branches, form a dense canopy overhead. 
+The riverbanks are alive with aggressive vegetation, thick brambles, brightly colored flowers bloom defiantly amidst the thorns. 
+The air is thick with humidity, carrying the rich scent of earth and green life, mixed with the occasional sharp tang of citrus from wild fruit trees. 
+This is a place where nature thrives in its wildest form, a breathtaking scene of beauty and ferocity, where every element seems to be in a constant struggle for survival and dominance.
+You must prepare to fight the beast in this area to make it through.
+
+#Exit Valley of Whispers
+You made it through the Valley of Whispers after some hard fought battles. On to the next chapter of your journey.
+
+#Enter Stormspire Heights
+High above the valley floor, a rugged mountain range rises dramatically, its jagged peaks piercing the sky like ancient sentinels.
+The cliffs are steep and sheer, their rocky faces weathered by time and elements, displaying layers of sediment in hues of gray and ochre. 
+Wisps of cloud cling to the summits, swirling in and out as if nature itself is painting a living masterpiece.
+The wind howls through the crevices and across the ridges, a relentless force that tugs at loose stones and sends them tumbling into the abyss below.
+Sunlight filters through the clouds, casting sharp shadows across the landscape and illuminating patches of vibrant wildflowers that stubbornly cling to life in the rocky soil.
+Below, the valleys are dotted with patches of green, a stark contrast to the imposing gray cliffs above.
+More beast await you in this terrifying landscape.
+ 
+#Exit Stormspire Heights
+You made it through the Stormspire Heights after some hard fought battles. On to the next chapter of your journey.
+
+#Enter Dark Marsh
 Finally, you arrive at the Dark Marsh, a foreboding expanse shrouded in mist and mystery. The ground is soft and 
 treacherous, with hidden sinkholes and lurking shadows. The air is thick with an eerie silence, occasionally broken by 
 distant croaks and rustles that send shivers down your spine.
@@ -118,3 +174,51 @@ fear throughout Zonia. To face this powerful foe, you must navigate the twisting
 your own fears and doubts, which manifest as shadowy creatures drawn from the darkness.
 You must rally your courage and confront your own inner darkness. The battle will be fierce, but with the light of 
 hope and the strength of your journey behind you, you can defeat Gorlath ,restore peace to Zonia, and return home.
+
+#Lucky Find 
+After your last battle you notice a small glint under a fallen log.
+You lift the log to find a tiny fairy.
+Fairy: Thank you, I have been trap there for sometime. I am the last of my kind tasked with waiting for the Outsider.
+Player: I am sorry to hear that. I was told I am the Outsider and I am here to defeat Gorlath.
+Fairy: Then these are for you.
+You recieved: Excalibur
+You recieved: Mithril 
+
+#Boss fight
+At the heart of the dark marsh lies an expansive clearing, a hauntingly beautiful yet foreboding sanctuary shrouded in shadow. 
+Here, the air feels heavier, charged with a palpable energy that makes the skin prickle.
+Bioluminescent mushrooms of various shapes and sizes spring up from the damp earth, casting an ethereal glow that bathes the clearing in hues of blues, greens, and purples.
+Their soft light flickers like stars fallen from the sky, illuminating the marsh’s oppressive darkness.
+Delicate wisps of glowing fog drift lazily through the air, curling and twisting as if they possess a mind of their own.
+These luminous apparitions dance in the stillness, creating an otherworldly atmosphere that feels both enchanting and menacing.
+The air is thick with moisture, and the faint sound of water dripping and splashing echoes softly, punctuating the eerie silence.
+As you step deeper into the clearing, the ground beneath your feet shifts ominously, revealing the marsh's treacherous nature. 
+Suddenly, the water in the center begins to roil and bubble violently. With a powerful surge, Gorlath, the Slime King, rises from the murky depths. 
+His form is grotesque yet fascinating, a mass of undulating green and black slime that glistens in the bioluminescent glow. 
+Eyes of deep amber pierce through the thick ooze, glinting with malevolence.
+With a terrible roar that reverberates through the marsh, Gorlath proclaims his dominion over this shadowy realm. 
+The glowing wisps swirl around him, drawn to his presence, as the marsh seems to shudder in response to his awakening. 
+
+You have defeated Gorlath
+
+#Ending
+In the aftermath of the epic battle against the evil that had cast its shadow over the land, the world begins to breathe anew, shaking off the remnants of darkness. 
+The Valley of Whispers, once shrouded in melancholic gloom, slowly transforms before your eyes. As sunlight breaks through the lingering clouds, the valley awakens with vibrant colors. 
+Twisted brambles and aggressive flora give way to an explosion of life—wildflowers bloom in radiant hues, and the once-winding river sparkles with clarity, reflecting the blue sky above. 
+Birds return, filling the air with joyous songs, and the gentle rustle of leaves creates a symphony of nature, replacing the valley’s former whispers of despair.
+At Stormspire Heights, the dark clouds that had clung to the mountains like a heavy shroud dissipate, revealing the magnificent peaks in all their glory. 
+Towering spires of granite glisten in the newfound sunlight, their surfaces catching the light and reflecting a kaleidoscope of colors.
+The slopes, once barren and windswept, are now adorned with rich greenery and vibrant alpine flowers, breathing life into every crevice.
+The air is fresh and invigorating, carrying the scent of pine and the promise of adventure, as if the mountains themselves are rejoicing in their liberation.
+Meanwhile, the Dark Marsh undergoes its most astonishing transformation. 
+As the oppressive gloom lifts, the murky waters recede, revealing lush plains dotted with blooming wildflowers and thick grasses that sway in the gentle breeze.
+The once ominous pits are now glistening ponds, teeming with life.
+A magnificent forest emerges at the edges of the plains, with trees that stretch high into the sky, their canopies alive with chirping birds and rustling leaves. 
+At the heart of this reborn landscape lies a crystal-clear lake, its surface smooth and reflective, mirroring the vibrant blue of the sky and the surrounding greenery.
+Life flourishes everywhere—deer graze peacefully by the water’s edge, and butterflies flit from flower to flower, 
+while the laughter of children can be heard in the distance as they play in the newly transformed landscape.
+The world, once steeped in darkness and despair, is now a harmonious blend of beauty and vitality that promises a bright future for all who inhabit it.
+As you take in the breathtaking scene, a shimmering portal suddenly opens before you, swirling with colors that beckon. 
+Through its luminous frame, you catch a glimpse of your path back home. With a sense of closure and hope, you step through the portal.
+
+THE END
