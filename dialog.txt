@@ -175,6 +175,9 @@ your own fears and doubts, which manifest as shadowy creatures drawn from the da
 You must rally your courage and confront your own inner darkness. The battle will be fierce, but with the light of 
 hope and the strength of your journey behind you, you can defeat Gorlath ,restore peace to Zonia, and return home.
 
+#Dark Marsh Victory
+You have made it through to the center of the marsh.
+
 #Lucky Find 
 After your last battle you notice a small glint under a fallen log.
 You lift the log to find a tiny fairy.
