@@ -84,23 +84,23 @@ def read_lines_from_file(file_path, start_line, end_line):
                 break
     return selected_lines
 
-def dialog_options(lines, text):
+def dialog_selection(lines, text):
     # Used when there are multiple dialog options
-    # Displays Options and directs dialog lines to fit choosen option 
-    skipNum = 0
-    text += "What do you do?\n"
+    # Prepares and displays the dialog selection screen
+    prompt = "What do you do?\n"
+    options = []
     numOfOptions = 0
     for line in lines:
-        if line == "#1":
+        if line == "#0":
             break
-        numOfOptions += 1
-        text += line + "\n"
-    text = text.replace("Player", player.name)
-    slow_type(text)
-    text = "\n"
+        options.append(line + "\n")
+    
+    return pick_option(prompt, options)
 
-    choice = choose(numOfOptions)
-
+def dialog_direction(lines, text, choice):
+    # Used when there are multiple dialog options
+    # Directs dialog to fit choosen option 
+    skipNum = 0
     printOption = False
     for line in lines:
         skipNum += 1
@@ -127,7 +127,8 @@ def dialog(line_start, end_line):
         if skipNum > 0:
             skipNum -= 1
         elif line == "#Options":
-            skipNum, text = dialog_options(lines[index+1:], text)
+            choice = dialog_selection(lines[index+1:], text)
+            skipNum, text = dialog_direction(lines[index+1:], text, choice)
         else:     
             text += line + "\n"
     text = text.replace("Player", player.name)
@@ -141,8 +142,11 @@ class Character:
     def __init__(self, name, health, attack, defense):
         self.name = name
         self.health = health
+        self.maxHealth = health
         self.attack = attack
         self.defense = defense
+        self.special_counter = 3
+        self.health_potion_count = 10
 
     def take_damage(self, damage):
         raw_damage = damage - self.defense
@@ -150,7 +154,18 @@ class Character:
         self.health = max(0, self.health - raw_damage)
 
     def drink_health_potion(self):
-        self.health = min(100, self.health + 50)
+        self.health = min(self.maxHealth, self.health + 50)
+        self.special_counter = 3
+        self.health_potion_count -= 1
+
+    def is_special_ready(self, inc):
+        if self.special_counter == 3:
+            return True
+        elif inc:
+            self.special_counter += 1
+            return False
+        else:
+            return False
 
     def is_alive(self):
         return self.health > 0 
@@ -166,8 +181,7 @@ def enemy_turn(enemy):
         elif enemy.defense < player.attack:
             text += f"{enemy.name} Attacks you for {enemy.attack} Damage\nYou have {player.defense} defense so they will deal a total of {enemy.attack - player.defense} damage.\n\n"
         else:
-            text += f"{enemy.name} Attacks you for {enemy.attack} Damage\nYou have {player.defense} defense so they will thankfully deal 0 damage.\n\n"
-                
+            text += f"{enemy.name} Attacks you for {enemy.attack} Damage\nYou have {player.defense} defense so they will thankfully deal 0 damage.\n\n"     
         player.take_damage(enemy.attack)
     elif enemy_action == "Defend":
         #defend
@@ -176,7 +190,7 @@ def enemy_turn(enemy):
     return text
 
 def excute_player_action(action, enemy):
-    global player, weapon, special_attack, ready_up_timer, health_potion_count
+    global player, weapon, special_attack
     text = ""
     if action == 0:
         #attack
@@ -191,16 +205,14 @@ def excute_player_action(action, enemy):
         #defend
         player.defense += 5
         text += f"You defend for an attack!\nYou have perpared a total of {player.defense} block to negate incoming damage\n\n"
-    elif action == 2 and health_potion_count > 0:
+    elif action == 2 and player.health_potion_count > 0:
         #heal
-        if ready_up_timer < 3: 
-            text += f"You drink a Health Potion and heal for {min(100 - player.health, 50)} HP\nYou feel replenished! Your special is back up\n\n"
+        if player.is_special_ready(False): 
+            text += f"You drink a Health Potion and heal for {min(player.maxHealth - player.health, 50)} HP\nYou feel replenished! Your special is back up\n\n"
         else: 
-            text += f"You drink a Health Potion and heal for {min(100 - player.health, 50)} HP\n\n"
-        ready_up_timer = 3
+            text += f"You drink a Health Potion and heal for {min(player.maxHealth - player.health, 50)} HP\n\n"
         player.drink_health_potion()
-        health_potion_count -= 1
-    elif action == 3 or (action == 2 and not health_potion_count > 0):
+    elif action == 3 or (action == 2 and not player.health_potion_count > 0):
         #special
         if enemy.defense <= 0:
             text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n\n"
@@ -209,31 +221,28 @@ def excute_player_action(action, enemy):
         else:
             text += f"You {special_attack} for {2*player.attack} damage!\nYour Exhausted! You won't be able to do that again for a while.\n{enemy.name} has {enemy.defense} defense so you will sadly deal 0 damage.\n\n"
         enemy.take_damage(2*player.attack)
-        ready_up_timer = 0
+        player.special_counter = 0
     return text
 
-def combat(enemy, godMode):
-    global player, weapon, special_attack, ready_up_timer, health_potion_count
-    ready_up_timer = 3
+def combat(enemy):
+    global player, weapon, special_attack
     player.defense = 5
     inCombat = True
     print(f"You have encountered a {enemy.name} prepare to fight")
     
     while inCombat:
 
-        print(f"\nYour HP: {player.health}/100 | {enemy.name} HP {enemy.health})")
+        print(f"\nYour HP: {player.health} | {enemy.name} HP {enemy.health}")
 
         options = [weapon, "Prepare to Defend"]
-        if health_potion_count > 0:
-            options.append(f"Drink Health Potion 50 HP ({health_potion_count} left)")
-        if ready_up_timer >= 3:
+        if player.health_potion_count > 0:
+            options.append(f"Drink Health Potion 50 HP ({player.health_potion_count} left)")
+        if player.is_special_ready(True):
             options.append(f"{special_attack}")
-        else:
-            ready_up_timer += 1
 
         action = pick_option("Pick an Action:", options) #clears console 
 
-        print(f"\n{player.name} HP: {player.health} | {enemy.name} HP {enemy.health}")
+        print(f"\nYour HP: {player.health} | {enemy.name} HP {enemy.health}")
 
         print("\nPress the Space Bar to Skip Animation\n")
 
@@ -246,7 +255,6 @@ def combat(enemy, godMode):
             text += f"\nYou've Beaten {enemy.name}\n"
             inCombat = False
             
-        
         slow_type(text)
         print("Press the Space Bar to continue")
         keyboard.wait('Space')
@@ -254,25 +262,35 @@ def combat(enemy, godMode):
         time.sleep(0.2)
         
         if not player.is_alive():
-            #player Dead 
-            if godMode:
-                #player is invinsible
-                slow_type(f"\nYou escape {enemy.name}\n")
-                print("Press the Space Bar to continue")
-                keyboard.wait('Space')
-                clear_console()
-                time.sleep(0.2)
+            slow_type(f"\n\n Game Over")
+            if not input("Enter Q to quit or anything else to Restart: ").strip() == "Q":
+                play()
             else:
-                slow_type(f"\n\n Game Over")
-                if input("Enter Q to quit or anything else to Restart: ").strip() == "Q":
-                    exit()
-                else:
-                    play()
+                exit()
             
+def combat_set(enemies):
+    global player
+    player.health_potion_count = 10
+    player.special_counter = 3
+    pygame.mixer.music.load('11-Fighting.mp3')
+    start_audio()
+    ran_num = random.randint(1, 2)
+    i = 2
+    while ran_num >= 0:
+        ran_enemy = random.randint(0,i)
+        combat(enemies[ran_enemy])
+        enemies.pop(ran_enemy)
+        ran_num -= 1
+        i -= 1
+    stop_audio()
+    pygame.mixer.music.load('12-Fanfare.mp3')
+    start_audio()
+
 def play():
     # Start Of Game
     pygame.mixer.music.load('01-The Prelude.mp3')
     start_audio()
+
     clear_console()
     player_name = input("\nWhat is your name?\n")
 
@@ -325,31 +343,29 @@ def play():
     dialog(137,137)
     clear_console()
     
-    global weapon, special_attack, health_potion_count
+    global weapon, special_attack
 
     weapons = pick_option("Weapon?", ["Sword", "Bow", "Staff"])
-    special_attack = ""
-    if weapons == 0:
-        special_attack = "Perform a Jump Attack"
-        weapon = "Attack with your Sword"
-    elif weapons == 1:
-        special_attack = "Perform a Charge Shot"
-        weapon = "Attack with your Bow"
-    elif weapons == 2:
-        special_attack = "Cast a Greater Fireball"
-        weapon = "Cast a Minor Fireball"
 
     dialog(138,139)
     clear_console()
     dialog(140,140)
     print()
+
+    special_attack = ""
     if weapons == 0:
+        special_attack = "Perform a Jump Attack"
+        weapon = "Attack with your Sword"
         dialog(141,141)
         clear_console()
     elif weapons == 1:
+        special_attack = "Perform a Charge Shot"
+        weapon = "Attack with your Bow"
         dialog(142,142)
         clear_console()
     elif weapons == 2:
+        special_attack = "Cast a Greater Fireball"
+        weapon = "Cast a Minor Fireball"
         dialog(143,143)
         clear_console()
 
@@ -358,19 +374,9 @@ def play():
 
     #Battles for the Valley
     
-    health_potion_count = 10
-    ran_num = random.randint(2, 4)
-    global valley_enemy
     valley_enemy = [Character("Flowering Cactoid", 50, 10, 3), Character("Mandragora",80,10,3), Character("Treant",100,20,5)]
-    pygame.mixer.music.load('11-Fighting.mp3')
-    start_audio()
-    while ran_num > 0:
-        ran_enemy = random.randint(0,2)
-        combat(valley_enemy[ran_enemy], False)
-        ran_num -= 1
-    stop_audio()
-    pygame.mixer.music.load('12-Fanfare.mp3')
-    start_audio()
+    combat_set(valley_enemy)
+
     dialog(154,154)
     clear_console()
     stop_audio()
@@ -381,19 +387,9 @@ def play():
 
     #Batles for the Stormspire
 
-    health_potion_count = 10
-    ran_num = random.randint(2, 4)
-    global mountain_enemy
     mountain_enemy = [Character("Golem", 100, 20, 25), Character("Troll",60,30,10), Character("Goblin",40,15,1)]
-    pygame.mixer.music.load('11-Fighting.mp3')
-    start_audio()
-    while ran_num > 0:
-        ran_enemy = random.randint(0,2)
-        combat(mountain_enemy[ran_enemy], False)
-        ran_num -= 1
-    stop_audio()
-    pygame.mixer.music.load('12-Fanfare.mp3')
-    start_audio()
+    combat_set(mountain_enemy)
+
     dialog(166,166)
     clear_console()
     stop_audio()
@@ -404,19 +400,9 @@ def play():
     
     #Battle for the Marsh
 
-    health_potion_count = 10
-    ran_num = random.randint(2, 4)
-    global marsh_enemy
     marsh_enemy = [Character("Wild Onion", 50, 10, 5), Character("Deadly Nightshade",60,15,3), Character("Dark Wisp",40,15,1)]
-    pygame.mixer.music.load('11-Fighting.mp3')
-    start_audio()
-    while ran_num > 0:
-        ran_enemy = random.randint(0,2)
-        combat(marsh_enemy[ran_enemy], False)
-        ran_num -= 1
-    stop_audio()
-    pygame.mixer.music.load('12-Fanfare.mp3')
-    start_audio()
+    combat_set(marsh_enemy)
+
     dialog(179,179)
     stop_audio()
     pygame.mixer.music.load('52-The Nightmare\'s Beginning.mp3')
@@ -426,11 +412,11 @@ def play():
     dialog(191,203)
     stop_audio()
 
-    player = Character(player_name,100,150,30)
+    player = Character(player_name,100,30,30)
     gorlath = Character("Gorlath",300,30,30)
     pygame.mixer.music.load('21-Still More Fighting.mp3')
     start_audio()
-    combat(gorlath,False)
+    combat(gorlath)
     stop_audio()
     pygame.mixer.music.load('12-Fanfare.mp3')
     start_audio()

@@ -33,14 +33,14 @@ Wizard: *under breath* They are never going to make it out of here.
 #no shower no teeth brushed and ate an onion
 Wizard: Points staff at player, "show your true form you vile orc, I can smell you through the disguise"
 #Options
-1. I am not an orc, I just forgot to shower orrr brush my teeth."
-2. How dare you, take this...
-#1
+I am not an orc, I just forgot to shower orrr brush my teeth."
+How dare you, take this...
+#0
 Wizard: Ahh, if trolls can smell you from a mile away, we're in trouble!
 Player: I thought they were attracted to shiny things, not... whatever this is!
 Wizard: Oh, they're attracted to smells, too! And right now, you're like bacon!
 #Done
-#2
+#1
 The Wizard bashes your head with their staff
 Everything fades to black.  
 You wake up next to the wizard again.
