@@ -139,26 +139,34 @@ def dialog(line_start, end_line):
     time.sleep(0.2)
 
 class Character:
+    # Class used to manage and keep track stats for both the Player and Enemies
     def __init__(self, name, health, attack, defense):
         self.name = name
         self.health = health
-        self.maxHealth = health
         self.attack = attack
         self.defense = defense
-        self.special_counter = 3
-        self.health_potion_count = 10
+        self.special_counter = 3 # only used for player 
+        self.health_potion_count = 10 # only used for player
+        self.maxHealth = health # only used for player
 
     def take_damage(self, damage):
+        # Used to deal Damage to Character
         raw_damage = damage - self.defense
         self.defense = max(0, self.defense - damage)
         self.health = max(0, self.health - raw_damage)
 
+    def is_alive(self):
+        # Used to Determine if Character is Alive
+        return self.health > 0 
+
     def drink_health_potion(self):
+        # Used whenever the Player heals
         self.health = min(self.maxHealth, self.health + 50)
         self.special_counter = 3
         self.health_potion_count -= 1
 
     def is_special_ready(self, inc):
+        # Used whenever we need to check to see if the player's special is ready
         if self.special_counter == 3:
             return True
         elif inc:
@@ -167,8 +175,6 @@ class Character:
         else:
             return False
 
-    def is_alive(self):
-        return self.health > 0 
 
 def enemy_turn(enemy):
     global player
@@ -225,42 +231,44 @@ def excute_player_action(action, enemy):
     return text
 
 def combat(enemy):
+    # Conducts Combat
     global player, weapon, special_attack
     player.defense = 5
     inCombat = True
     print(f"You have encountered a {enemy.name} prepare to fight")
-    
     while inCombat:
-
         print(f"\nYour HP: {player.health} | {enemy.name} HP {enemy.health}")
 
+        # Player's Turn
+
+        # Determining Player's Availible Actions and their action choice
         options = [weapon, "Prepare to Defend"]
         if player.health_potion_count > 0:
             options.append(f"Drink Health Potion 50 HP ({player.health_potion_count} left)")
         if player.is_special_ready(True):
             options.append(f"{special_attack}")
-
         action = pick_option("Pick an Action:", options) #clears console 
 
         print(f"\nYour HP: {player.health} | {enemy.name} HP {enemy.health}")
-
         print("\nPress the Space Bar to Skip Animation\n")
 
-        text = excute_player_action(action, enemy)
-        
+        # Execute Player's Action
+        text = excute_player_action(action, enemy) # adds players turn to text 
+
         if enemy.is_alive():
-            text += enemy_turn(enemy)
+            # Enemies Turn
+            text += enemy_turn(enemy) # adds Enemies turn to text
         else:
-            #enemy dead
             text += f"\nYou've Beaten {enemy.name}\n"
             inCombat = False
-            
-        slow_type(text)
+        
+        slow_type(text) # Prints Text to Screen and prepare for next turn 
         print("Press the Space Bar to continue")
         keyboard.wait('Space')
         clear_console()
         time.sleep(0.2)
-        
+
+        # Check if player is dead and if enemies won
         if not player.is_alive():
             slow_type(f"\n\n Game Over")
             if not input("Enter Q to quit or anything else to Restart: ").strip() == "Q":
@@ -424,8 +432,8 @@ def play():
     stop_audio()
     pygame.mixer.music.load('62-Interrupted by Fireworks.mp3')
     start_audio()
-    dialog(205,221)
+    dialog(205,224)
     clear_console()
-    dialog(224,224)
+    dialog(226,226)
 
 play()

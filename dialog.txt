@@ -204,7 +204,6 @@ The glowing wisps swirl around him, drawn to his presence, as the marsh seems to
 
 You have defeated Gorlath
 
-#Ending
 In the aftermath of the epic battle against the evil that had cast its shadow over the land, the world begins to breathe anew, shaking off the remnants of darkness. 
 The Valley of Whispers, once shrouded in melancholic gloom, slowly transforms before your eyes. As sunlight breaks through the lingering clouds, the valley awakens with vibrant colors. 
 Twisted brambles and aggressive flora give way to an explosion of life—wildflowers bloom in radiant hues, and the once-winding river sparkles with clarity, reflecting the blue sky above. 
